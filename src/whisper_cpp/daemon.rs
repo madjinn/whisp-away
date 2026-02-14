@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 use std::fs;
 use std::io::{Read, Write};
 use std::os::unix::net::{UnixListener, UnixStream};
+use std::net::Shutdown;
 use std::os::unix::fs::PermissionsExt;
 use std::path::Path;
 use std::sync::Arc;
@@ -205,6 +206,8 @@ async fn handle_connection(
         };
         let response_json = serde_json::to_string(&response)?;
         stream.write_all(response_json.as_bytes())?;
+        stream.flush()?;
+        stream.shutdown(Shutdown::Both)?;
         return Ok(());
     }
     
@@ -219,6 +222,8 @@ async fn handle_connection(
         };
         let response_json = serde_json::to_string(&response)?;
         stream.write_all(response_json.as_bytes())?;
+        stream.flush()?;
+        stream.shutdown(Shutdown::Both)?;
         return Ok(());
     }
     
@@ -234,7 +239,9 @@ async fn handle_connection(
     
     let response_json = serde_json::to_string(&response)?;
     stream.write_all(response_json.as_bytes())?;
-    
+    stream.flush()?;
+    stream.shutdown(Shutdown::Both)?;
+
     Ok(())
 }
 
@@ -263,6 +270,8 @@ async fn handle_connection_with_state(
         };
         let response_json = serde_json::to_string(&response)?;
         stream.write_all(response_json.as_bytes())?;
+        stream.flush()?;
+        stream.shutdown(Shutdown::Both)?;
         return Ok(());
     }
     
@@ -277,6 +286,8 @@ async fn handle_connection_with_state(
         };
         let response_json = serde_json::to_string(&response)?;
         stream.write_all(response_json.as_bytes())?;
+        stream.flush()?;
+        stream.shutdown(Shutdown::Both)?;
         return Ok(());
     }
     
@@ -292,7 +303,9 @@ async fn handle_connection_with_state(
     
     let response_json = serde_json::to_string(&response)?;
     stream.write_all(response_json.as_bytes())?;
-    
+    stream.flush()?;
+    stream.shutdown(Shutdown::Both)?;
+
     Ok(())
 }
 
