@@ -97,7 +97,10 @@ in {
       WA_USE_CLIPBOARD = if cfg.useClipboard then "true" else "false";
     } // optionalAttrs (cfg.accelerationType == "cuda") {
       CUDA_VISIBLE_DEVICES = "0";
-      LD_LIBRARY_PATH = "${pkgs.cudaPackages.cudatoolkit}/lib:${pkgs.cudaPackages.cudnn}/lib:\${LD_LIBRARY_PATH}";
+      LD_LIBRARY_PATH = [
+        "${pkgs.cudaPackages.cudatoolkit}/lib"
+        "${pkgs.cudaPackages.cudnn}/lib"
+      ];
     };
     
     # Create cache directories using systemd tmpfiles
