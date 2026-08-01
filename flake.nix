@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    crane.url = "github:ipetkov/crane";
+    crane.url = "github:ipetkov/crane/v0.23.4";
   };
 
   outputs = { self, nixpkgs, crane, ... }@inputs:
